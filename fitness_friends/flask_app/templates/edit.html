@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous" defer></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="container p-3 mb-2 bg-secondary text-white d-flex justify-content-evenly">
+    <h1>Update Workout Journal Entry</h1>
+    
+    <a href="/workouts/dashboard">Back Everbody's Workouts</a> | 
+    <a href="/logout">Logout</a>
+    </div>
+
+    
+
+    <div class="container p-3 mb-2 bg-secondary text-white col-6 d-flex p-2">
+        
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p style="color: red;">{{message}}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+            <form action="/workouts/update" method="POST">
+                <input type="hidden" name="id" value="{{ one_workout.id }}">
+                <div>
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" name="date" value="{{one_workout.date}}">
+                </div>
+                <div>
+                    <label>Weather:
+                    <input type="text" name="weather" value="{{one_workout.weather}}">
+                    </label>
+                </div>
+                <div>
+                    <label>Hi Temp:
+                    <input type="number" name="hi_temp" value="{{one_workout.hi_temp}}">
+                    </label>
+                </div>
+                <div>
+                    <label>Low Temp:
+                    <input type="number" name="low_temp" value="{{one_workout.low_temp}}">
+                    </label>
+                </div>
+                <div>
+                    <label>Did you workout?</label><br>
+                    <label>
+                        <input type="radio" name="workout_y_n" value="yes" {% if one_workout.workout_y_n == "yes" %}checked{% endif %}>
+                        Yes
+                    </label>
+                    <label>
+                        <input type="radio" name="workout_y_n" value="no" {% if one_workout.workout_y_n == "no" %}checked{% endif %}>
+                        No
+                    </label>
+                </div>
+                <div>
+                    <label>Intensity:</label><br>
+                    <label>
+                        <input type="radio" name="intensity" value="low" {% if one_workout.intensity == "low" %}checked{% endif %}>
+                        Low
+                    </label>
+                    <label>
+                        <input type="radio" name="intensity" value="moderate" {% if one_workout.intensity == "moderate" %}checked{% endif %}>
+                        Moderate
+                    </label>
+                    <label>
+                        <input type="radio" name="intensity" value="high" {% if one_workout.intensity == "high" %}checked{% endif %}>
+                        High
+                    </label>
+                </div>
+                <div>
+                    <label>How did you sleep last nigth?</label><br>
+                    <label>
+                        <input type="radio" name="sleep" value="poor" {% if one_workout.sleep == "poor" %}checked{% endif %}>
+                        Poor
+                    </label>
+                    <label>
+                        <input type="radio" name="sleep" value="ok" {% if one_workout.sleep == "ok" %}checked{% endif %}>
+                        OK
+                    </label>
+                    <label>
+                        <input type="radio" name="sleep" value="great" {% if one_workout.sleep == "great" %}checked{% endif %}>
+                        Great
+                    </label>
+                </div>
+                <div>
+                    <label>How was your diet yesterday?</label><br>
+                    <label>
+                        <input type="radio" name="diet" value="poor" {% if one_workout.diet == "poor" %}checked{% endif %}>
+                        Poor
+                    </label>
+                    <label>
+                        <input type="radio" name="diet" value="ok" {% if one_workout.diet == "ok" %}checked{% endif %}>
+                        OK
+                    </label>
+                    <label>
+                        <input type="radio" name="diet" value="great" {% if one_workout.diet == "great" %}checked{% endif %}>
+                        Great
+                    </label>
+                </div>
+                <input type="submit" value="Update Workout" class="btn btn-dark">
+            </form>
+            </div>
+</body>
+</html>

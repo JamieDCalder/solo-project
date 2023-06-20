@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous" defer></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="container p-3 mb-2 bg-secondary text-white d-flex justify-content-evenly gap-5">
+    <h1>Everbody's Workouts</h1>
+    <h2>Welcome {{one_user.first_name}}</h2>
+    <a href="/workout/new">New Journal Entry</a> 
+    | 
+    <a href="/users/edit/{{one_user.id}}">Edit Profile</a>
+    | 
+    <a href="/logout">Logout</a>
+    </div>
+
+    <h3 class="container p-3 mb-2 bg-secondary text-white col-8 d-flex p-2">All Workouts</h3>
+            
+    <div class="container">
+        {% for workout in workouts %}
+                <div class="card">
+                <div class="card-body bg-secondary text-white col-auto d-flex p-2 gap-5">
+                    <div>
+                        <p>Total Pump Ups Recieved</p>
+                        <p>0</p>
+                    </div>
+                    <div>
+                        <h5>Date: {{ workout.date.strftime('%B %dth, %Y') }}</h5>
+                        <h5>Athlete: {{ workout.athlete.first_name }}</h5>
+                        <h5>Weather: {{ workout.weather }}</h5>
+                        <h5>Did you workout?</h5>
+                            {% if workout.workout_y_n == 'no' %}
+                                <p class="text-danger">No, I did not work out.</p>
+                            {% elif workout.intensity == 'low' %}
+                                <p class="text-danger">I had a low impact workout.</p>
+                            {% elif workout.intensity == 'moderate' %}
+                                <p class="text-warning">I had a moderate impact workout.</p>
+                            {% elif workout.intensity == 'high' %}
+                                <p class="text-success">I had a high intensity workout.</p>
+                            {% endif %}
+                        <h5>How did you sleep last night?</h5>
+                            {% if workout.sleep == 'poor' %}
+                                <p class="text-danger">I had a poor night's sleep.</p>
+                            {% elif workout.sleep == 'ok' %}
+                                <p class="text-warning">I had an okay night's sleep.</p>
+                            {% elif workout.sleep == 'great' %}
+                                <p class="text-success">I had a great night's sleep.</p>
+                            {% endif %}
+                        <h5>How was your diet yesterday?</h5>
+                            {% if workout.diet == 'poor' %}
+                                <p class="text-danger">My diet was poor yesterday.</p>
+                            {% elif workout.diet == 'ok' %}
+                                <p class="text-warning">My diet was okay yesterday.</p>
+                            {% elif workout.diet == 'great' %}
+                                <p class="text-success">My diet was great yesterday.</p>
+                            {% endif %}
+                    </div>
+                    <div>
+                        <button class="btn btn-dark">Send Pump Up</button>
+                        {% if session['user_id'] == workout.athlete.id %}
+                            <a href="/workouts/edit/{{workout.id}}">Edit</a>
+                            <a href="/workouts/delete/{{workout.id}}">Delete</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+            
+</body>
+</html>

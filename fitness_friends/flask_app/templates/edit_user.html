@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous" defer></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="container p-3 mb-2 bg-secondary text-white d-flex justify-content-evenly">
+    <h1>Update Your Profile</h1>
+    
+    <a href="/workouts/dashboard">Back Everbody's Workouts</a> | 
+    <a href="/logout">Logout</a>
+    </div>
+
+    
+
+    <div class="container p-3 mb-2 bg-secondary text-white col-auto d-flex p-2">
+        
+
+        {% with messages = get_flashed_messages(category_filter=['register']) %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p style="color: red;">{{message}}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <form action='/user/update' method="post">
+            <input type="hidden" name="id" value="{{ one_user.id }}">
+            <div>
+                <label>
+                    First Name:
+                    <input type="text" name="first_name" value="{{one_user.first_name}}">
+                </label>
+            </div>
+            <div>
+                <label>
+                    Last Name:
+                    <input type="text" name="last_name" value="{{one_user.last_name}}">
+                </label>
+            </div>
+            <div>
+                <label>
+                    Date of Birth:
+                    <input type="date" name="date_of_birth" value="{{one_user.date_of_birth}}">
+                </label>
+            </div>
+            <div>
+                <label>
+                    Zip Code:
+                    <input type="text" name="zipcode" value="{{one_user.zipcode}}">
+                </label>
+            </div>
+            <input type="submit" value="Update Profile" class="btn btn-dark">
+        </form>
+    </div>
+</body>
+</html>
